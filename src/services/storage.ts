@@ -67,9 +67,7 @@ const uploadFile = async (bucket: string, folder: string, file: File) => {
     
     if (listError) {
       console.error('列出存储桶时出错:', { 
-        message: listError.message, 
-        code: listError.code, 
-        details: listError.details 
+        message: listError.message 
       });
       // 使用模拟存储作为回退
       const mockKey = `${bucket}-${folder}-${file.name}`;
@@ -98,8 +96,8 @@ const uploadFile = async (bucket: string, folder: string, file: File) => {
     
     // 尝试获取存储桶的公共URL（权限测试）
     console.log('测试存储桶权限，尝试获取根路径URL');
-    const { data: urlData, error: urlError } = supabase.storage.from(bucket).getPublicUrl('');
-    console.log('权限测试结果:', { hasUrl: !!urlData?.publicUrl, error: urlError?.message, urlData });
+    const { data: urlData } = supabase.storage.from(bucket).getPublicUrl('');
+    console.log('权限测试结果:', { hasUrl: !!urlData?.publicUrl, url: urlData?.publicUrl });
     
     // 即使权限测试失败，也继续尝试上传，因为空路径的公共URL可能与具体文件的权限不同
     
@@ -120,10 +118,7 @@ const uploadFile = async (bucket: string, folder: string, file: File) => {
     
     if (uploadError) {
       console.error('Supabase上传错误详情:', {
-        message: uploadError.message,
-        code: uploadError.code,
-        details: uploadError.details,
-        hint: uploadError.hint
+        message: uploadError.message
       });
       
       // 对于特定错误提供更友好的处理
@@ -156,21 +151,22 @@ const uploadFile = async (bucket: string, folder: string, file: File) => {
     console.log('文件上传成功！开始获取公共URL');
     // 增加更详细的日志记录获取公共URL的过程
     console.log('尝试获取公共URL的文件路径:', path);
-    const { data: publicUrlData, error: publicUrlError } = supabase.storage.from(bucket).getPublicUrl(path);
+    const { data: publicUrlData } = supabase.storage.from(bucket).getPublicUrl(path);
     
     console.log('获取公共URL结果:', { 
       hasPublicUrl: !!publicUrlData?.publicUrl, 
-      error: publicUrlError?.message,
+      // 获取公共URL结果中不包含error属性，无需记录
       data: publicUrlData
     });
     
     // 即使获取公共URL失败，也先尝试使用可能的URL结构
     if (!publicUrlData?.publicUrl) {
       console.error('获取公共URL失败，尝试使用构建的URL结构');
-      // 构建一个可能的URL结构作为备选
-      const possibleUrl = `${supabase.storageUrl}/object/public/${bucket}/${path}`;
-      console.log('尝试使用构建的URL:', possibleUrl);
-      return possibleUrl;
+      // 使用官方方法构建URL，而不是直接访问storageUrl
+      // 对于获取URL失败的情况，返回模拟URL作为备选
+      console.warn('获取公共URL失败，使用模拟URL作为备选');
+      const mockUrl = generateMockImageUrl(300, 400, StorageErrorType.URL_ERROR);
+      return mockUrl;
     }
     
     console.log('上传完成！公共URL:', publicUrlData.publicUrl);

@@ -2,35 +2,49 @@ import { FormEvent, useState } from 'react';
 
 type Props = {
   disabled?: boolean;
-  onSubmit: (content: string) => Promise<void> | void;
+  onSubmit: (content: string) => void;
 };
 
-export const CommentForm = ({ disabled, onSubmit }: Props) => {
+export const CommentForm = ({ disabled = false, onSubmit }: Props) => {
   const [content, setContent] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (!content.trim()) return;
-    await onSubmit(content.trim());
+    
+    // 清除之前的错误信息
+    setError(null);
+    
+    // 验证输入内容
+    const trimmedContent = content.trim();
+    if (!trimmedContent) {
+      setError('评论内容不能为空');
+      return;
+    }
+    
+    // 调用父组件传入的onSubmit回调
+    onSubmit(trimmedContent);
+    
+    // 清空输入框
     setContent('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="comment-form">
+    <form className="comment-form" onSubmit={handleSubmit}>
       <textarea
         value={content}
-        maxLength={140}
-        placeholder="写下你的一句话短评（140 字内）"
-        onChange={(event) => setContent(event.target.value)}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="写下你的评论..."
         disabled={disabled}
+        maxLength={200}
       />
+      {error && <p className="error-text">{error}</p>}
       <div className="comment-form__actions">
-        <span>{content.length} / 140</span>
+        <span>{content.length}/200</span>
         <button type="submit" disabled={disabled || !content.trim()}>
-          发送
+          发表评论
         </button>
       </div>
     </form>
   );
 };
-
