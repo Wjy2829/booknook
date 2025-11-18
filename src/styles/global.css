@@ -1,0 +1,916 @@
+:root {
+  font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+  color: #111;
+  background-color: #fdfcf8;
+  line-height: 1.6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fdfcf8;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-content {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.logo small {
+  font-size: 12px;
+  color: #666;
+}
+
+.app-main {
+  flex: 1;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 24px;
+  color: #666;
+}
+
+nav {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-link, .nav-disabled {
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #333;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover:not(.active) {
+  background: #f5f5f2;
+}
+
+.nav-link.active {
+  background: #111;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav-link:hover:not(.active) {
+    background: #2d2d2d;
+  }
+}
+
+.nav-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.primary-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.primary-btn:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.ghost-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f3f3f1;
+  border-radius: 999px;
+  border: none;
+  padding: 6px 12px;
+  transition: all 0.2s ease;
+}
+
+.ghost-btn:hover {
+  background: #e6e6e2;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ghost-btn:hover {
+    background: #3a3a3a;
+  }
+}
+
+.ghost-btn img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.page-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.search-bar {
+  display: flex;
+  background: #fff;
+  border-radius: 999px;
+  padding: 4px;
+  border: 1px solid #eee;
+  margin: 16px auto;
+  max-width: 480px;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-bar button {
+  border: none;
+  background: #f3f3f1;
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+.sort-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sort-tabs button {
+  border: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: #f3f3f1;
+}
+
+.sort-tabs button.active {
+  background: #111;
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.book-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #f0f0eb;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 卡片内容淡入效果 */
+.card-body {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.cover {
+  height: 200px;
+  overflow: hidden;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.author {
+  color: #666;
+  margin: 0;
+}
+
+.review {
+  margin: 0;
+  color: #444;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-footer .user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-footer img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.like-chip {
+  border: none;
+  border-radius: 999px;
+  padding: 4px 12px;
+  background: #f5f5f2;
+}
+
+.like-chip.active {
+  background: #ffe5ec;
+  color: #d60045;
+}
+
+.empty-tip {
+  text-align: center;
+  color: #777;
+}
+
+.detail-page .detail-header {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+}
+
+.detail-header img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.poster {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.poster img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.like-button {
+  margin-top: 16px;
+  border: 1px solid #111;
+  border-radius: 999px;
+  padding: 10px 18px;
+  background: #fff;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.like-button:hover {
+  transform: translateY(-1px);
+}
+
+.like-button.active {
+  background: #111;
+  color: #fff;
+}
+
+/* 取消点赞按钮样式 */
+.unlike-button {
+  margin-top: 16px;
+  border: 1px solid #d60045;
+  border-radius: 999px;
+  padding: 10px 18px;
+  background: #fff5f7;
+  color: #d60045;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.unlike-button:hover {
+  background: #ffe5ec;
+  transform: translateY(-1px);
+}
+
+.author-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+.author-actions .danger {
+  color: #d60045;
+  border: 1px solid #d60045;
+  background: #fff5f7;
+}
+
+.detail-body {
+  margin-top: 32px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 18px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 80px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  resize: vertical;
+}
+
+.comment-form__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comment-list li {
+  background: #fff;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.comment-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.comment-author img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.profile-card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 20px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.avatar-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.avatar-upload img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.avatar-upload input {
+  display: none;
+}
+
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-info input,
+.profile-info textarea {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.profile-section {
+  margin-top: 32px;
+}
+
+.profile-share-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-share-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* 统一按钮样式 */
+/* 保存信息按钮 */
+.profile-info button {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.profile-info button:hover:not(:disabled) {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+.profile-info button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 发布新书按钮 */
+.section-header button {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin: 12px 0; /* 增加上下间距 */
+}
+
+.section-header button:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+/* 编辑按钮 */
+.profile-share-actions button:not(.danger) {
+  background: #f3f3f1;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.profile-share-actions button:not(.danger):hover {
+  background: #e6e6e2;
+  transform: translateY(-1px);
+}
+
+/* 删除按钮 */
+.profile-share-actions button.danger {
+  background: #fff5f7;
+  color: #d60045;
+  border: 1px solid #d60045;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.profile-share-actions button.danger:hover {
+  background: #ffe5ec;
+  transform: translateY(-1px);
+}
+
+.share-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 20px;
+}
+
+.share-editor input,
+.share-editor textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.share-editor textarea {
+  min-height: 140px;
+}
+
+.share-editor .cover-field img {
+  width: 160px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+}
+
+.auth-card {
+  background: #fff;
+  padding: 32px;
+  border-radius: 24px;
+  width: 360px;
+}
+
+.auth-card .tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  background: #f8f8f8;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.auth-card .tabs button {
+  flex: 1;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card .tabs button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.auth-card .tabs button.active {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-card input {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.auth-card button[type='submit'] {
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  background: #111;
+  color: #fff;
+}
+
+.error-text {
+  color: #d60045;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  animation: shimmer 1.5s infinite;
+}
+
+.line {
+  height: 12px;
+  background: #f3f3f1;
+  border-radius: 999px;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.w-70 {
+  width: 70%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+/* 响应式设计优化 */
+/* 大屏幕 */
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(280px, 1fr));
+  }
+}
+
+/* 中屏幕 */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+  }
+}
+
+/* 平板 */
+@media (min-width: 640px) and (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .detail-page .detail-header {
+    grid-template-columns: 240px 1fr;
+    gap: 20px;
+  }
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* 移动端 */
+@media (max-width: 639px) {
+  .nav-content {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 16px;
+  }
+  
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .detail-page .detail-header {
+    grid-template-columns: 1fr;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .page-container {
+    padding: 20px 16px 40px;
+  }
+  
+  .auth-card {
+    width: 100%;
+    padding: 24px;
+  }
+  
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 16px;
+  }
+  
+  .avatar-upload img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .card-body {
+    padding: 16px 12px;
+  }
+  
+  .search-bar {
+    margin: 16px;
+  }
+  
+  .detail-body {
+    padding: 16px;
+  }
+}
+
+/* 暗色模式支持 - 基础变量 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #f0f0f0;
+    background-color: #121212;
+  }
+  
+  body {
+    background: #121212;
+  }
+  
+  .app-header {
+    background: #1e1e1e;
+    border-bottom-color: #333;
+  }
+  
+  .nav-link {
+    color: #ccc;
+  }
+  
+  .search-bar, 
+  .book-card, 
+  .detail-body, 
+  .comment-list li, 
+  .profile-card, 
+  .share-editor, 
+  .auth-card {
+    background: #1e1e1e;
+    border-color: #333;
+  }
+  
+  .auth-card .tabs {
+    background: #2d2d2d;
+  }
+  
+  .auth-card .tabs button {
+    color: #aaa;
+  }
+  
+  .auth-card .tabs button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ddd;
+  }
+  
+  .auth-card .tabs button.active {
+    background: #333;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .ghost-btn, 
+  .search-bar button, 
+  .sort-tabs button {
+    background: #2d2d2d;
+  }
+  
+  .author, 
+  .review, 
+  .app-footer {
+    color: #aaa;
+  }
+  
+  .like-chip {
+    background: #2d2d2d;
+  }
+  
+  .share-editor input, 
+  .share-editor textarea, 
+  .profile-info input, 
+  .profile-info textarea, 
+  .auth-card input, 
+  .comment-form textarea {    
+    background: #2d2d2d;
+    border-color: #444;
+    color: #f0f0f0;
+  }
+  
+  /* 暗色主题按钮样式 */
+  .profile-info button {
+    background: #333;
+    color: #f0f0f0;
+  }
+  
+  .profile-info button:hover:not(:disabled) {
+    background: #444;
+  }
+  
+  .section-header button {
+    background: #333;
+    color: #f0f0f0;
+  }
+  
+  .section-header button:hover {
+    background: #444;
+  }
+  
+  .profile-share-actions button:not(.danger) {
+    background: #2d2d2d;
+    color: #ddd;
+  }
+  
+  .profile-share-actions button:not(.danger):hover {
+    background: #3a3a3a;
+  }
+  
+  .profile-share-actions button.danger {
+    background: #3d262c;
+    color: #ff8a9e;
+    border-color: #6e2e3e;
+  }
+  
+  .profile-share-actions button.danger:hover {
+    background: #54303a;
+  }
+}
+
