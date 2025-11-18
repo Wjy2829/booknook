@@ -26,7 +26,10 @@ const generateMockImageUrl = (width: number = 300, height: number = 400, errorTy
 const generateFilePath = (folder: string, filename: string) => {
   const ext = filename.split('.').pop();
   const timestamp = Date.now();
-  return `${folder}/${timestamp}-${crypto.randomUUID()}.${ext}`;
+  // 使用更兼容的方式生成唯一ID，不依赖crypto.randomUUID()
+  const uniqueId = Math.random().toString(36).substring(2, 15) + 
+                  Math.random().toString(36).substring(2, 15);
+  return `${folder}/${timestamp}-${uniqueId}.${ext}`;
 };
 
 const uploadFile = async (bucket: string, folder: string, file: File) => {
