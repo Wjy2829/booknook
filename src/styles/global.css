@@ -457,18 +457,45 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.avatar-upload:hover {
+  transform: translateY(-2px);
 }
 
 .avatar-upload img {
   width: 96px;
   height: 96px;
   border-radius: 50%;
+  border: 2px solid #f0f0eb;
+  transition: border-color 0.2s ease;
+}
+
+.avatar-upload:hover img {
+  border-color: #e0e0d8;
 }
 
 .avatar-upload input {
   display: none;
+}
+
+.avatar-upload span {
+  background: #f3f3f1;
+  color: #333;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.avatar-upload:hover span {
+  background: #111;
+  color: #fff;
 }
 
 .profile-info {
@@ -884,7 +911,26 @@ nav {
   .profile-info button:hover:not(:disabled) {
     background: #444;
   }
-  
+
+  /* 暗色模式下的头像上传按钮样式 */
+  .avatar-upload img {
+    border-color: #333;
+  }
+
+  .avatar-upload:hover img {
+    border-color: #444;
+  }
+
+  .avatar-upload span {
+    background: #2d2d2d;
+    color: #ccc;
+  }
+
+  .avatar-upload:hover span {
+    background: #fff;
+    color: #111;
+  }
+
   .section-header button {
     background: #333;
     color: #f0f0f0;
