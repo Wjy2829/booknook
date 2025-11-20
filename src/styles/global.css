@@ -217,8 +217,11 @@ nav {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  justify-content: center;
+  max-width: 1120px;
+  margin: 0 auto;
 }
 
 .book-card {
@@ -228,6 +231,18 @@ nav {
   border: 1px solid #f0f0eb;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 确保card-link能够正确继承flex布局 */
+.card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
 }
 
 .book-card:hover {
@@ -244,12 +259,14 @@ nav {
 .cover {
   height: 200px;
   overflow: hidden;
+  position: relative;
 }
 
 .cover img {
   width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
+  display: block;
 }
 
 .card-body {
@@ -257,6 +274,15 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* 确保review元素有固定高度以保证布局一致性 */
+.card-body .review {
+  flex-grow: 1;
+  min-height: 0;
 }
 
 .card-header {
@@ -268,7 +294,7 @@ nav {
 
 .card-header h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .author {
@@ -276,15 +302,37 @@ nav {
   margin: 0;
 }
 
+.time {
+  color: #999;
+  font-size: 12px;
+  margin: 0;
+}
+
 .review {
   margin: 0;
   color: #444;
+  height: 63px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  word-break: break-word;
+  box-sizing: border-box;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
+  padding-top: 12px;
+  min-height: 40px;
+  flex-shrink: 0;
+  border-top: 1px solid #f0f0eb;
 }
 
 .card-footer .user {
@@ -360,6 +408,43 @@ nav {
 .like-button.active {
   background: #111;
   color: #fff;
+}
+
+/* 作者操作按钮样式 */
+.author-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.author-actions button:not(.danger) {
+  background: #f3f3f1;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.author-actions button:not(.danger):hover {
+  background: #e6e6e2;
+  transform: translateY(-1px);
+}
+
+.author-actions button.danger {
+  background: #fff5f7;
+  color: #d60045;
+  border: 1px solid #d60045;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.author-actions button.danger:hover {
+  background: #ffe5ec;
+  transform: translateY(-1px);
 }
 
 /* 取消点赞按钮样式 */
@@ -744,14 +829,15 @@ nav {
 /* 大屏幕 */
 @media (min-width: 1200px) {
   .grid {
-    grid-template-columns: repeat(4, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+    gap: 28px;
   }
 }
 
 /* 中屏幕 */
 @media (min-width: 769px) and (max-width: 1199px) {
   .grid {
-    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, minmax(260px, 1fr));
   }
 }
 
@@ -885,6 +971,10 @@ nav {
   .review, 
   .app-footer {
     color: #aaa;
+  }
+
+  .time {
+    color: #888;
   }
   
   .like-chip {

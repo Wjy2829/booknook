@@ -26,7 +26,7 @@ export const BookCard = ({ share, onLike }: Props) => {
             </div>
             <p className="time">{formatRelativeTime(share.created_at)}</p>
           </div>
-          <p className="review">{limitText(share.review, 140)}</p>
+          <p className="review">{limitText(share.review, 80)}</p>
           <div className="card-footer">
             <div className="user">
               <img
