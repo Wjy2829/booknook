@@ -14,13 +14,14 @@ const sortOptions: { key: SortOption; label: string }[] = [
 
 export const HomePage = () => {
   const [search, setSearch] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [sort, setSort] = useState<SortOption>('newest');
   const [shares, setShares] = useState<BookShare[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { session } = useAuth();
   const navigate = useNavigate();
 
-  const debouncedSearch = useMemo(() => search.trim(), [search]);
+  const debouncedSearch = useMemo(() => searchQuery.trim(), [searchQuery]);
 
   const loadShares = async () => {
     setIsLoading(true);
@@ -34,6 +35,10 @@ export const HomePage = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSearch = () => {
+    setSearchQuery(search);
   };
 
   useEffect(() => {
@@ -69,7 +74,7 @@ export const HomePage = () => {
       <div className="hero">
         <h1>BookNook · 小书角</h1>
         <p>用最短的内容传递最有价值的读书体验</p>
-        <SearchBar value={search} onChange={setSearch} />
+        <SearchBar value={search} onChange={setSearch} onSearch={handleSearch} />
         <div className="sort-tabs">
           {sortOptions.map((option) => (
             <button
